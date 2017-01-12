@@ -1,0 +1,15 @@
+<div>
+  <h3>login</h3>
+  <form action="{% url 'login' %}">
+      <input type="text" name="user_name" />
+      <input type="submit" value="login"/>
+  </form>
+  <br />
+  <hr />
+  <br />
+  <br />
+  <form action="{% url 'signup' %}" method="post">
+    {% csrf_token %}
+    {{ user_form }}
+  </form>
+</div>

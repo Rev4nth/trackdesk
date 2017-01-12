@@ -1,0 +1,23 @@
+<div>
+  <h1>{{ ticket.ticket_title }}</h1>
+  <p>
+    created on {{ ticket.ticket_time_stamp }}
+  </p>
+  <h4>{{ ticket.ticket_description }}</h4>
+  <br />
+  <h5>Comments:</h2>
+  <ul>
+    {% for comment in ticket.comments_set.all %}
+    <li>
+      {{ comment.ticket_comment }}
+    </li>
+    {% endfor %}
+  </ul>
+  <br />
+  <h5>Add a comment :</h5>
+  <form action="{% url 'ticket_show' ticket.id %}" method="post">
+    {% csrf_token %}
+    {{ comment_form }}
+    <input type="submit" value="submit"/>
+  </form>
+</div>
