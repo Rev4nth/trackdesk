@@ -7,6 +7,28 @@ import pdb
 from .models import Tickets, Comments
 from .forms import TicketForm, CommentForm
 # Create your views here.
+def signup(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST)
+        if user_form.is_valid():
+            user_name =  user_form.cleaned_data['user_name']
+            user_role = user_form.cleaned_data['user_role']
+            user =  Users(user_name=user_name, user_role=user_role)
+            user.save()
+            user_form = UserForm()
+            helper_info = "You can login now"
+        return render(request, 'login.html',{ 'user_form' : user_form , 'helper_info' : helper_info })
+    else:
+        user_form = UserForm()
+        helper_info = "Enter valid details"
+    return render(request, 'login.html',{ 'user_form' : user_form , 'helper_info' : helper_info })
+
+def login(request):
+    user_name = request.GET['user_name']
+    user = Users.objects.get(user_name=user_name)
+    user_id = user.id
+    return render(request, 'login.html')
+
 
 def ticket_index(request):
     tickets_list = Tickets.objects.all()

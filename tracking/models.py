@@ -2,9 +2,12 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-# Create your models here.
+class Users(models.Model):
+    user_name = models.CharField(max_length = 40)
+    user_role = models.CharField(max_length = 40)
 
 class Tickets(models.Model):
+    ticket_creator = models.ForeignKey(Users, on_delete=models.CASCADE, default=1)
     ticket_title = models.CharField(max_length = 90)
     ticket_description = models.TextField()
     ticket_time_stamp = models.DateTimeField()
